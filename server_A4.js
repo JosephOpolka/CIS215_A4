@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateItemDetails(itemId);
     });
 
-    // Listen for changes in the quantity input to update the total cost
+    // Listen for changes in the quantity input to update the total cost.
     quantityInput.addEventListener('input', updateTotal);
 
     function fetchCatalogItems() {
