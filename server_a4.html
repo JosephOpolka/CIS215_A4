@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Purchase Orders</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="server_A4.css">
+    </head>
+    <body>
+            <div class="top">
+                <h1>Purchase Orders</h1>
+                <div class="section">
+                    <h2>Results</h2>
+                    <div id="successMessage" style="display: none;"></div>
+                </div>
+            </div>
+        <div class="bottom_half">
+            <div class="actions">
+                <div class="section">
+                    <h2>Add Entry</h2>
+                    <label for="add_drop">Select Table - </label>
+                    <select id="add_drop">
+                        <option id="driver">Users</option>
+                        <option id="vehicle">Purchases</option>
+                    </select>
+
+                    <form id="add_entry_Users">
+                        <p>Add User - </p>
+                        <label for="user_name">Name - </label>
+                        <input type="text" id="user_name" name="">
+                        <label for="user_dob">DOB - </label>
+                        <input type="text" id="user_dob" name="">
+                        <label for="user_email">Email - </label>
+                        <input type="text" id="user_email" name="">
+                        <label for="user_phone">Phone Number- </label>
+                        <input type="text" id="user_phone" name="">
+
+                        <button id="add_submit_Users">Submit</button>
+                    </form>
+                    <form id="add_entry_Purchases">
+                        <p>Proceed to Checkout - </p>
+                        <label for="checkout_user_id">User ID - </label>
+                        <input type="text" id="checkout_usr_id" name="">
+
+                        <label for="catalog_item">Item - </label>
+                        <select id="catalog_items">
+                            <option value="1">1 - Randy's Rations - Dehydrated Meat</option>
+                            <option value="2">2 - One Genuine Nuclear Bomb</option>
+                            <option value="3">3 - Delly Platter</option>
+                            <option value="4">4 - Multi-Purpose Cut Lumber</option>
+                            <option value="5">5 - LCD Screen Panel</option>
+                            <option value="6">6 - State Finals Ticket</option>
+                            <option value="7">7 - Can of Dirt - Slamm-O!</option>
+                            <option value="8">8 - Batteries</option>
+                            <option value="9">9 - Artist's Felt Pen Set</option>
+                            <option value="10">10 - Tank of Helium</option>
+                            <option value="11">11 - One Puppy - Scottish Terrier</option>
+                            <option value="12">12 - 200 Piece Candy Bag</option>
+                        </select>
+                        <div class="price_description_container">
+                            <p class="description"> This is a very long Item description for this particular item. Bow down before it.</p>
+                            <h1 class="unit_price">$X.XX</h1>
+                        </div>
+                        <label for="quantity">Quantity - </label>
+                        <input type="text" id="quantity" name="">
+
+                        <h4 class="total">Purchase Total - $00.00</h4>
+                        <button id="add_submit_Purchases">Submit</button>
+                    </form>
+
+                </div>
+
+                <div class="section">
+                    <h2>Delete Entry</h2>
+                    <label for="delete_drop">Select Table - </label>
+                    <select id="delete_drop">
+                        <option id="delete_opt_user">Users</option>
+                        <option id="delete_opt_purchase">Purchases</option>
+                    </select>
+
+                    <p>Deleting Entry - </p>
+                    <form id="delete_entry">
+                        <label for="delete_id">ID - </label>
+                        <input type="text" id="delete_id" name="">
+                        <button id="delete_submit">Submit</button>
+                    </form>
+                </div>
+
+
+
+                <div class="section">
+                    <h2>Query Database</h2>
+                    <p>Search Query</p>
+                    <form id="query">
+                        <label for="query_table">Tables -</label>
+                        <div class="input-group">
+                            <select id="query_drop">
+                                <option id="Users">Users</option>
+                                <option id="Catalog">Catalog</option>
+                                <option id="Purchases">Purchases</option>
+                            </select>
+                        </div>
+                        
+                            <label for="query_id">Row (ID) -</label>
+                        <div class="input-group">
+                            <input type="text" id="query_id" name="">
+                        </div>
+                        
+                            <label for="query_column">Column -</label>
+                        <div class="input-group">
+                            
+                            <select id="query_column_Users">
+                                <option id="u_opt_name">name</option>
+                                <option id="u_opt_dob">dob</option>
+                                <option id="u_opt_email">email</option>
+                                <option id="u_opt_phone">phone</option>
+                                <option id="u_opt_debt">debt</option>
+                            </select>
+                            <select id="query_column_Catalog">
+                                <option id="c_opt_item_name">item_name</option>
+                                <option id="c_opt_description">item_description</option>
+                                <option id="c_opt_unit_price">unit_price</option>
+                            </select>
+                            <select id="query_column_Purchases">
+                                <option id="p_opt_purchase_date">purchase_date</option>
+                                <option id="p_opt_user_id">user_id</option>
+                                <option id="p_opt_item_id">item_id</option>
+                                <option id="p_opt_unit_price">unit_price</option>
+                                <option id="p_opt_quantity">quantity</option>
+                                <option id="p_opt_total_price">total_price</option>
+                            </select>
+                        </div>
+
+                            <label for="query_contain">Containing Text -</label>
+                        <div class="input-group">
+                            <input type="text" id="query_contain" name="">
+                        </div>
+                        <button id="query_submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Purchase Reciept</h2>
+                <label for="user_id_input">User ID - </label>
+                <input type="text" id="user_id_input" name="">
+                <label for="purchase_id_input">User's Purchase # - </label>
+                <input type="text" id="purchase_id_input" name="">
+
+                <button id="reciept_submit">Submit</button>
+                <div class="purchase_display">
+                    <p>Purchase Order Reciept</p>
+                    <p>Purchase made on (Date)</p>
+                    <p>Customer: (User's Name)</p>
+                    <p>_______________________</p>
+                    <p>Item ID - Item Name (Quantity) . . . . (Item Total)</p>
+                    <p>Total - (Total Price)</p>
+                </div>
+                <!-- PURCHASE DISPLAY -->
+            </div>
+            
+            <div class="section">
+                <h2>Tables</h2>
+                <label for="table_drop">Select Table - </label>
+                <select id="table_drop">
+                    <option id="users">Users</option>
+                    <option id="catalog">Catalog</option>
+                    <option id="purchases">Purchases</option>
+                </select>
+                <div class="table_display"></div>
+            </div>
+        </div>
+        <script src="server_A4.js"></script>
+    </body>
+</html>

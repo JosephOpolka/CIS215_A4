@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(191, 71, 123);
+}
+.section {
+    border: 2px solid #4d061e;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(237, 199, 241);
+    margin: 5px;
+}
+.top .section {
+    width: 45%;
+}
+.actions .section {
+    vertical-align: top;
+    display: inline-block;
+    width: 30%;
+}
+.top {
+    background-color: rgb(154, 22, 70);
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+.top h1 {
+    margin: 0;
+    padding: 10px;
+    width: 45%;
+}
+h2 {
+    font-size: 20px;
+    margin: 0px; 
+    margin-bottom: 15px;
+}
+
+.item_order {
+    display: grid;
+    gap: 10px;
+    border: 2px solid rgb(204, 93, 124);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+label {
+    font-size: 13px;
+}
+button {
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    bottom: 0;
+}
+.purchase_display {
+    font-family: 'Roboto Mono', monospace;
+    background-color: white;
+    padding: 15px;  
+    margin: 10px;
+    box-shadow: 2px 5px 5px rgba(0,0,0,0.2);
+}
+
+.price_description_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.description {
+    font-size: 0.7em;
+    margin-right: 10px;
+    background-color: rgb(242, 111, 132);
+    border: 2px solid rgb(255, 171, 201);
+    border-radius: 10px;
+    padding: 6px;
+    margin: 0 20px 0 0;
+    
+}
+
+.unit_price {
+    font-size: 0.7em;
+    background-color: rgb(154, 22, 70);
+    color: white;
+    padding: 0.6em;
+    margin: 0;
+    position: relative;
+}
+
+.unit_price:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -13px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 13px 13px 13px 0;
+    border-color: transparent rgb(154, 22, 70) transparent transparent;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+
+}
+.bottom_half {
+    margin: 25px;
+}
+table {
+    margin: 8px;
+}
+th {
+    font-size: 12px;
+    padding: 8px 20px;
+    border: 2px solid #4d061e;
+    background-color: rgb(154, 22, 70);
+}
+td {
+    font-size: 12px;
+    padding: 8px 20px;
+    border: 2px solid rgb(165, 49, 82);
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    align-items: center;
+}
