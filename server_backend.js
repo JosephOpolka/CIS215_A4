@@ -2,6 +2,10 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cron = require('node-cron');
+
+const backupDatabase = require('./backup');
+const cleanupOldBackups = require('./cleanup');
 
 const app = express();
 
@@ -10,7 +14,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-// connection to car-trips.db
+// connection to purchase_system.db
 const db = new sqlite3.Database('purchase_system.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error(err.message);
@@ -220,7 +224,17 @@ app.get('/api/purchase-receipt/:userId/:userPurchase', (req, res) => {
     });
 });
 
-
+// Schedule database backup every hour
+cron.schedule('0 * * * *', () => {
+    console.log('Running scheduled database backup...');
+    backupDatabase();
+  });
+  
+  // Schedule cleanup of old backups every day at midnight
+  cron.schedule('0 0 * * *', () => {
+    console.log('Running scheduled cleanup of old backups...');
+    cleanupOldBackups();
+  });
 
 const PORT = 3000;
 // starts server
