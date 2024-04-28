@@ -17,7 +17,7 @@ function cleanupOldBackups() {
         console.log(`Current Time: ${new Date(now)}`);
         console.log(`File Age in Days: ${ageInDays.toFixed(2)}`);
 
-        if (ageInDays > 7) { // Change this to whatever your time criteria are
+        if (ageInDays > 7) { 
             fs.unlinkSync(filePath);
             console.log(`Deleted old backup: ${file}`);
         }

@@ -9,6 +9,43 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2500);
     }
 
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            resultsDisplay('Both email and password are required.');
+            return;
+        }
+
+        fetch('http://localhost:3000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                resultsDisplay(data.error);
+            } else {
+                resultsDisplay(data.message);
+                // Display elements by removing "hidden" Class
+                document.querySelectorAll('.hidden').forEach(element => {
+                    element.classList.remove('hidden');
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Login Error:', error);
+            resultsDisplay('Login failed: ' + error.message);
+        });
+    });
+
     // Displaying Add Entry Forms
     function showSelectedForm() {
         var selectedOption = document.getElementById("add_drop").value;
@@ -72,13 +109,14 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         const formData = {
             name: document.getElementById('user_name').value,
+            password: document.getElementById('user_password').value,
             dob: document.getElementById('user_dob').value,
             email: document.getElementById('user_email').value,
             phone: document.getElementById('user_phone').value,
         }
     
         // Form Validation
-        if (!formData.name || !formData.dob || !formData.email || !formData.phone) {
+        if (!formData.name || !formData.password || !formData.dob || !formData.email || !formData.phone) {
             alert('All fields must be filled!');
             return;
         }
@@ -103,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             // Clear input fields
             document.getElementById('user_name').value = '';
+            document.getElementById('user_password').value = '';
             document.getElementById('user_dob').value = '';
             document.getElementById('user_email').value = '';
             document.getElementById('user_phone').value = '';

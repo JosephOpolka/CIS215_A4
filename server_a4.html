@@ -7,19 +7,30 @@
         <link rel="stylesheet" href="server_A4.css">
     </head>
     <body>
-            <div class="top">
-                <h1>Purchase Orders</h1>
-                <div class="section">
-                    <h2>Results</h2>
-                    <div id="successMessage" style="display: none;"></div>
-                </div>
+        <div class="top">
+            <h1>Purchase Orders</h1>
+            <div class="section">
+                <h2>Results</h2>
+                <div id="successMessage" style="display: none;"></div>
             </div>
+        </div>
+        <div class="section">
+            <h2>LOGIN - </h2>
+            <form id="login-form">
+                <input type="text" id="email" placeholder="Enter email">
+                <input type="password" id="password" placeholder="Enter password">
+                <button id="login-buttom">Login</button>
+            </form>
+        </div>
+
+        <!-- style="display: none;" -->
+
         <div class="bottom_half">
             <div class="actions">
                 <div class="section">
                     <h2>Add Entry</h2>
                     <label for="add_drop">Select Table - </label>
-                    <select id="add_drop">
+                    <select id="add_drop" class="hidden">
                         <option id="driver">Users</option>
                         <option id="vehicle">Purchases</option>
                     </select>
@@ -28,6 +39,8 @@
                         <p>Add User - </p>
                         <label for="user_name">Name - </label>
                         <input type="text" id="user_name" name="">
+                        <label for="user_password">Password - </label>
+                        <input type="password" id="user_password">
                         <label for="user_dob">DOB - </label>
                         <input type="text" id="user_dob" name="">
                         <label for="user_email">Email - </label>
@@ -79,7 +92,7 @@
                     </select>
 
                     <p>Deleting Entry - </p>
-                    <form id="delete_entry">
+                    <form id="delete_entry" class="hidden">
                         <label for="delete_id">ID - </label>
                         <input type="text" id="delete_id" name="">
                         <button id="delete_submit">Submit</button>
@@ -91,7 +104,7 @@
                 <div class="section">
                     <h2>Query Database</h2>
                     <p>Search Query</p>
-                    <form id="query">
+                    <form id="query" class="hidden">
                         <label for="query_table">Tables -</label>
                         <div class="input-group">
                             <select id="query_drop">
@@ -140,7 +153,7 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section hidden">
                 <h2>Purchase Reciept</h2>
                 <label for="user_id_input">User ID - </label>
                 <input type="text" id="user_id_input" name="">
@@ -159,7 +172,7 @@
                 <!-- PURCHASE DISPLAY -->
             </div>
             
-            <div class="section">
+            <div class="section hidden">
                 <h2>Tables</h2>
                 <label for="table_drop">Select Table - </label>
                 <select id="table_drop">

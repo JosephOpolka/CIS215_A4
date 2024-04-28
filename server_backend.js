@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cron = require('node-cron');
 
+const { hashPassword, verifyPassword, generateToken } = require('./auth');
+
 const backupDatabase = require('./backup');
 const cleanupOldBackups = require('./cleanup');
 
@@ -24,6 +26,37 @@ const db = new sqlite3.Database('purchase_system.db', sqlite3.OPEN_READWRITE, (e
 });
 
 // VSCode - node server_backend.js in terminal window to start backend
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const query = 'SELECT * FROM Users WHERE email = ?';
+
+    db.get(query, [email], async (err, user) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        try {
+            const isMatch = await verifyPassword(password, user.password);
+            if (isMatch) {
+                res.json({ message: 'Login successful' });
+            } else {
+                res.status(401).json({ error: 'Invalid credentials.' });
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            res.status(500).json({ error: 'Internal server error during login.' });
+        }
+    });
+});
 
 // DISPLAYING TABLES
 app.get('/api/users', (req, res) => {
@@ -64,22 +97,22 @@ app.get('/api/purchases', (req, res) => {
 
 
 // ADDING ENTRIES
-app.post('/api/add-users', (req, res) => {
-    const data = req.body;
-    console.log("Console logging");
-    console.log(data);
+app.post('/api/add-users', async (req, res) => {
+    const { name, password, dob, email, phone } = req.body;
 
-    const query = 'INSERT INTO Users (name, dob, email, phone) VALUES (?, ?, ?, ?)';
-    const { name, dob, email, phone } = data;
-
-    db.run(query, [name, dob, email, phone], function(err) {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-
-        const user_id = this.lastID; // Get the last inserted user_id
-        res.json({ message: 'User added successfully', user_id: user_id });
-    });
+    try {
+        const hashedPassword = await hashPassword(password);
+        const query = 'INSERT INTO Users (name, dob, password, email, phone) VALUES (?, ?, ?, ?, ?)';
+        db.run(query, [name, dob, hashedPassword, email, phone], function(err) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.json({ message: 'User added successfully', user_id: this.lastID });
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to register user due to an internal error.' });
+        console.error('Registration error:', error);
+    }
 });
 
 app.post('/api/add-purchases', (req, res) => {
@@ -224,17 +257,17 @@ app.get('/api/purchase-receipt/:userId/:userPurchase', (req, res) => {
     });
 });
 
-// Schedule database backup every hour
+// Backup Database Scheduled every hour
 cron.schedule('0 * * * *', () => {
     console.log('Running scheduled database backup...');
     backupDatabase();
-  });
+});
   
-  // Schedule cleanup of old backups every day at midnight
-  cron.schedule('0 0 * * *', () => {
+  // Cleanup Scheduled every midnight
+cron.schedule('0 0 * * *', () => {
     console.log('Running scheduled cleanup of old backups...');
     cleanupOldBackups();
-  });
+});
 
 const PORT = 3000;
 // starts server
